@@ -4,7 +4,8 @@ valid_outputs = ["R", "P", "S"]
 move_count = {'R':0, 'P':0 ,'S':0}
 winner = {"R":"P" , "P":"S", "S":"R"}
 
-move_count[input]+=1
+if input:
+	move_count[input]+=1
 
 def get_random_output():
 	return  random.choice(valid_outputs)

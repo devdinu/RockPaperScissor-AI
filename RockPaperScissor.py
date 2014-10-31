@@ -6,22 +6,26 @@ file_name = "persist_smilelearner_data"
 
 print "bot played: ", input
 
+DEBUG_ENABLED = True
+
 # helper : file handler
 def persist_data(game_data):
-	print "writting to file : ", game_data
+	debug_data("writting:" , game_data)
 	file = open(file_name, "w")
 	file.write(str(game_data))
 	file.close()
 
 def read_data(): #just reading one line?
-	early_data = open(file_name, 'r').read()
-	print early_data, "in file."
+	file = open(file_name, 'r')
+	early_data = file.read()
+	debug_data(early_data, "in file.")
+	file.close()
 	return eval(early_data)
 
 
 gd = {} #game_data
 
-if not os.path.isfile(file_name):
+if not input:
 	gd["valid_outputs"]  = ["R", "P", "S"]
 	gd["move_count"]  = {'R':0, 'P':0 ,'S':0}
 	gd["winner"]  = {"R":"P" , "P":"S", "S":"R"}
@@ -62,12 +66,11 @@ def get_winner_tuple_of_most_used_elems(dicts):
 	return max(dicts.iteritems(), key= operator.itemgetter(1))
 
 
-def debug_data():
-	print gd
+def debug_data(*args):
+	if DEBUG_ENABLED:
+		print args
 
-
-
-debug_data()
+# debug_data()
 output = process()
 
 
